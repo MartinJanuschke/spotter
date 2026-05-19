@@ -1,0 +1,86 @@
+{
+  "nav": {
+    "title": "Spotter",
+    "leaderboard": "Rangliste",
+    "players": "Spieler",
+    "games": "Spiele",
+    "scores": "Punkte"
+  },
+  "common": {
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "edit": "Bearbeiten",
+    "delete": "Löschen",
+    "loading": "Lade..."
+  },
+  "players": {
+    "title": "Spieler",
+    "add": "+ Spieler hinzufügen",
+    "newPlayer": "Neuer Spieler",
+    "firstName": "Vorname",
+    "lastName": "Nachname",
+    "yearOfBirth": "Geburtsjahr",
+    "firstNamePlaceholder": "Max",
+    "lastNamePlaceholder": "Mustermann",
+    "name": "Name",
+    "year": "Geburtsjahr",
+    "empty": "Noch keine Spieler. Füge einen hinzu, um loszulegen.",
+    "confirmDelete": "Diesen Spieler und alle Punkte löschen?"
+  },
+  "games": {
+    "title": "Spiele",
+    "add": "+ Spiel hinzufügen",
+    "newGame": "Neues Spiel",
+    "game": "Spiel",
+    "name": "Spielname",
+    "namePlaceholder": "Lattenschießen",
+    "scoring": "Wertung",
+    "higherIsBetter": "Höherer Wert ist besser",
+    "higherLabel": "↑ Höherer Wert ist besser",
+    "lowerLabel": "↓ Niedrigerer Wert ist besser",
+    "empty": "Noch keine Spiele. Füge eines hinzu, um loszulegen.",
+    "confirmDelete": "Dieses Spiel und alle Punkte löschen?"
+  },
+  "scores": {
+    "title": "Punkte eintragen",
+    "player": "Spieler",
+    "game": "Spiel",
+    "selectPlayer": "— Spieler wählen —",
+    "selectGame": "— Spiel wählen —",
+    "attempts": "Versuche",
+    "higherNote": "(höher ist besser)",
+    "lowerNote": "(niedriger ist besser)",
+    "best": "Bestes",
+    "attemptNo": "#",
+    "score": "Ergebnis",
+    "bestLabel": "★ bestes",
+    "remove": "Entfernen",
+    "newScore": "Neues Ergebnis",
+    "newScorePlaceholder": "z. B. 42",
+    "addAttempt": "Versuch hinzufügen",
+    "noAttempts": "Noch keine Versuche."
+  },
+  "register": {
+    "title": "Profil erstellen",
+    "subtitle": "Willkommen! Gib deine Daten ein, um loszulegen.",
+    "submit": "Registrieren",
+    "success": "Du bist registriert!",
+    "redirecting": "Du wirst zur Rangliste weitergeleitet…",
+    "alreadyRegistered": "Bereits registriert",
+    "alreadyRegisteredHint": "Dieser QR-Code wurde bereits zur Erstellung eines Spielers verwendet.",
+    "toLeaderboard": "Zur Rangliste"
+  },
+  "leaderboard": {
+    "title": "Rangliste",
+    "overall": "Gesamt",
+    "rank": "Rang",
+    "player": "Spieler",
+    "totalPoints": "Gesamt Pkt.",
+    "bestScore": "Bestes Ergebnis",
+    "points": "Punkte",
+    "empty": "Noch keine Punkte eingetragen.",
+    "gameEmpty": "Noch keine Punkte für dieses Spiel.",
+    "higherBetter": "↑ Höherer Wert ist besser",
+    "lowerBetter": "↓ Niedrigerer Wert ist besser"
+  }
+}

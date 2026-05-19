@@ -1,0 +1,86 @@
+{
+  "nav": {
+    "title": "Spotter",
+    "leaderboard": "Leaderboard",
+    "players": "Players",
+    "games": "Games",
+    "scores": "Scores"
+  },
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "loading": "Loading..."
+  },
+  "players": {
+    "title": "Players",
+    "add": "+ Add Player",
+    "newPlayer": "New Player",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "yearOfBirth": "Year of birth",
+    "firstNamePlaceholder": "Max",
+    "lastNamePlaceholder": "Mustermann",
+    "name": "Name",
+    "year": "Year of birth",
+    "empty": "No players yet. Add one to get started.",
+    "confirmDelete": "Delete this player and all their scores?"
+  },
+  "games": {
+    "title": "Games",
+    "add": "+ Add Game",
+    "newGame": "New Game",
+    "game": "Game",
+    "name": "Game name",
+    "namePlaceholder": "Lattenschießen",
+    "scoring": "Scoring",
+    "higherIsBetter": "Higher score is better",
+    "higherLabel": "↑ Higher is better",
+    "lowerLabel": "↓ Lower is better",
+    "empty": "No games yet. Add one to get started.",
+    "confirmDelete": "Delete this game and all its scores?"
+  },
+  "scores": {
+    "title": "Enter Scores",
+    "player": "Player",
+    "game": "Game",
+    "selectPlayer": "— Select player —",
+    "selectGame": "— Select game —",
+    "attempts": "Attempts",
+    "higherNote": "(higher is better)",
+    "lowerNote": "(lower is better)",
+    "best": "Best",
+    "attemptNo": "#",
+    "score": "Score",
+    "bestLabel": "★ best",
+    "remove": "Remove",
+    "newScore": "New score",
+    "newScorePlaceholder": "e.g. 42",
+    "addAttempt": "Add Attempt",
+    "noAttempts": "No attempts yet."
+  },
+  "register": {
+    "title": "Create your profile",
+    "subtitle": "Welcome! Enter your details to get started.",
+    "submit": "Register",
+    "success": "You're registered!",
+    "redirecting": "Taking you to the leaderboard…",
+    "alreadyRegistered": "Already registered",
+    "alreadyRegisteredHint": "This QR code has already been used to create a player.",
+    "toLeaderboard": "Go to Leaderboard"
+  },
+  "leaderboard": {
+    "title": "Leaderboard",
+    "overall": "Overall",
+    "rank": "Rank",
+    "player": "Player",
+    "totalPoints": "Total pts",
+    "bestScore": "Best score",
+    "points": "Points",
+    "empty": "No scores entered yet.",
+    "gameEmpty": "No scores for this game yet.",
+    "higherBetter": "↑ Higher is better",
+    "lowerBetter": "↓ Lower is better"
+  }
+}

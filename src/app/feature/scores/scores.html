@@ -1,0 +1,109 @@
+<div class="space-y-4">
+  <h1 class="text-2xl font-bold text-gray-900">{{ 'scores.title' | transloco }}</h1>
+
+  @if (error()) {
+    <div class="p-3 bg-red-50 border border-red-200 text-red-700 rounded-lg text-sm">{{ error() }}</div>
+  }
+
+  <div class="bg-white border border-gray-200 rounded-xl p-4 shadow-sm flex flex-col gap-3 md:flex-row md:flex-wrap">
+    <div class="flex flex-col gap-1">
+      <label class="text-xs text-gray-500 font-medium">{{ 'scores.player' | transloco }}</label>
+      <select [(ngModel)]="selectedPlayerId" [ngModelOptions]="{ standalone: true }"
+        class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 md:min-w-44">
+        <option value="">{{ 'scores.selectPlayer' | transloco }}</option>
+        @for (player of players(); track player.id) {
+          <option [value]="player.id">{{ player.first_name }} {{ player.last_name }}</option>
+        }
+      </select>
+    </div>
+    <div class="flex flex-col gap-1">
+      <label class="text-xs text-gray-500 font-medium">{{ 'scores.game' | transloco }}</label>
+      <select [(ngModel)]="selectedGameId" [ngModelOptions]="{ standalone: true }"
+        class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 md:min-w-44">
+        <option value="">{{ 'scores.selectGame' | transloco }}</option>
+        @for (game of games(); track game.id) {
+          <option [value]="game.id">{{ game.name }}</option>
+        }
+      </select>
+    </div>
+  </div>
+
+  @if (selectedPlayerId() && selectedGameId()) {
+    <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
+      <div class="px-4 py-3 border-b border-gray-100 flex items-center justify-between">
+        <span class="text-sm font-semibold text-gray-700">
+          {{ 'scores.attempts' | transloco }}
+          @if (currentGame()) {
+            <span class="ml-2 text-xs font-normal text-gray-400">
+              {{ currentGame()!.higher_is_better ? ('scores.higherNote' | transloco) : ('scores.lowerNote' | transloco) }}
+            </span>
+          }
+        </span>
+        @if (bestValue() !== null) {
+          <span class="text-xs text-gray-500">{{ 'scores.best' | transloco }}: <strong class="text-gray-900">{{ bestValue() }}</strong></span>
+        }
+      </div>
+
+      @if (attempts().length === 0) {
+        <p class="p-6 text-center text-gray-400 text-sm">{{ 'scores.noAttempts' | transloco }}</p>
+      } @else {
+        <!-- Mobile list -->
+        <ul class="md:hidden divide-y divide-gray-100">
+          @for (attempt of attempts(); track attempt.id) {
+            <li [class.bg-yellow-50]="attempt.value === bestValue()" class="flex items-center gap-3 px-4 py-3">
+              <span class="text-xs text-gray-400 w-6 shrink-0">#{{ attempt.attempt_number }}</span>
+              <span class="flex-1 font-medium text-gray-900 text-sm">
+                {{ attempt.value }}
+                @if (attempt.value === bestValue()) {
+                  <span class="ml-1 text-xs text-yellow-600">{{ 'scores.bestLabel' | transloco }}</span>
+                }
+              </span>
+              <button (click)="onDeleteAttempt(attempt.id)" [disabled]="loading()"
+                class="text-red-500 text-xs disabled:opacity-50 shrink-0">{{ 'scores.remove' | transloco }}</button>
+            </li>
+          }
+        </ul>
+        <!-- Desktop table -->
+        <table class="hidden md:table w-full text-sm">
+          <thead class="bg-gray-50 border-b border-gray-200">
+            <tr>
+              <th class="text-left px-4 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wide">{{ 'scores.attemptNo' | transloco }}</th>
+              <th class="text-left px-4 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wide">{{ 'scores.score' | transloco }}</th>
+              <th class="px-4 py-2"></th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100">
+            @for (attempt of attempts(); track attempt.id) {
+              <tr [class.bg-yellow-50]="attempt.value === bestValue()" class="hover:bg-gray-50">
+                <td class="px-4 py-2 text-gray-500">{{ attempt.attempt_number }}</td>
+                <td class="px-4 py-2 font-medium text-gray-900">
+                  {{ attempt.value }}
+                  @if (attempt.value === bestValue()) {
+                    <span class="ml-1 text-xs text-yellow-600">{{ 'scores.bestLabel' | transloco }}</span>
+                  }
+                </td>
+                <td class="px-4 py-2 text-right">
+                  <button (click)="onDeleteAttempt(attempt.id)" [disabled]="loading()"
+                    class="text-red-500 hover:text-red-700 text-xs disabled:opacity-50">{{ 'scores.remove' | transloco }}</button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      }
+
+      <div class="px-4 py-3 border-t border-gray-100 flex flex-col gap-3 md:flex-row md:items-end">
+        <div class="flex flex-col gap-1">
+          <label class="text-xs text-gray-500">{{ 'scores.newScore' | transloco }}</label>
+          <input type="number" [(ngModel)]="newValue" [ngModelOptions]="{ standalone: true }"
+            [placeholder]="'scores.newScorePlaceholder' | transloco" step="any"
+            class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 md:w-36" />
+        </div>
+        <button (click)="onAddAttempt()" [disabled]="!newValue() || loading()"
+          class="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors">
+          {{ 'scores.addAttempt' | transloco }}
+        </button>
+      </div>
+    </div>
+  }
+</div>
