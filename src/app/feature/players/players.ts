@@ -1,101 +1,141 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
-import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { PlayerService } from './player.service';
-import type { Player } from '../../core/models/types';
+import { CategoryService } from '../categories/category.service';
+import { ScoreService } from '../station/score.service';
+import { ToastService } from '../../ui/toast/toast.service';
+import { ConfirmService } from '../../ui/confirm-dialog/confirm.service';
+import { SpButton } from '../../ui/button/button';
+import { SpQrScanner } from '../../ui/scanner/qr-scanner';
+import { initials } from '../../core/util/format';
+import {
+  LucideCheck,
+  LucideChevronLeft,
+  LucideChevronRight,
+  LucideQrCode,
+  LucideTrash2,
+} from '../../ui/icons';
+
+interface PlayerDraft {
+  id?: string;
+  badge: string;
+  name: string;
+  year: string;
+}
 
 @Component({
   selector: 'app-players',
-  standalone: true,
-  imports: [ReactiveFormsModule, TranslocoPipe],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    FormsModule,
+    TranslocoPipe,
+    SpButton,
+    SpQrScanner,
+    LucideCheck,
+    LucideChevronLeft,
+    LucideChevronRight,
+    LucideQrCode,
+    LucideTrash2,
+  ],
   templateUrl: './players.html',
 })
 export class PlayersPage implements OnInit {
-  private readonly playerService = inject(PlayerService);
-  private readonly fb = inject(FormBuilder);
-  private readonly t = inject(TranslocoService);
+  protected readonly playerService = inject(PlayerService);
+  protected readonly categoryService = inject(CategoryService);
+  protected readonly scoreService = inject(ScoreService);
+  private readonly toast = inject(ToastService);
+  private readonly confirmService = inject(ConfirmService);
+  private readonly transloco = inject(TranslocoService);
 
-  protected readonly players = this.playerService.players;
-  protected readonly editingId = signal<string | null>(null);
-  protected readonly showAddForm = signal(false);
-  protected readonly error = signal<string | null>(null);
-  protected readonly loading = signal(false);
+  protected readonly view = signal<'list' | 'scan' | 'form'>('list');
+  protected readonly draft = signal<PlayerDraft>({ badge: '', name: '', year: '' });
 
-  protected readonly form = this.fb.group({
-    first_name: ['', Validators.required],
-    last_name: ['', Validators.required],
-    year_of_birth: [
-      new Date().getFullYear(),
-      [Validators.required, Validators.min(1900), Validators.max(2100)],
-    ],
-  });
+  protected readonly initials = initials;
 
-  async ngOnInit(): Promise<void> {
-    await this.playerService.load();
+  ngOnInit(): void {
+    void this.playerService.load();
+    void this.categoryService.load();
+    void this.scoreService.loadAll();
   }
 
-  onEdit(player: Player): void {
-    this.editingId.set(player.id);
-    this.showAddForm.set(false);
-    this.form.setValue({
-      first_name: player.first_name,
-      last_name: player.last_name,
-      year_of_birth: player.year_of_birth,
+  protected startScan(): void {
+    this.view.set('scan');
+  }
+
+  protected async onBadgeDetected(code: string): Promise<void> {
+    const existing = await this.playerService.findByBadge(code);
+    if (existing) {
+      this.editPlayer(existing.id);
+    } else {
+      this.draft.set({ badge: code, name: '', year: '' });
+      this.view.set('form');
+    }
+  }
+
+  protected simulateBadge(): void {
+    void this.onBadgeDetected(`SP-${Math.floor(1500 + Math.random() * 8000)}`);
+  }
+
+  protected editPlayer(id: string): void {
+    const player = this.playerService.players().find((p) => p.id === id);
+    if (!player) return;
+    this.draft.set({
+      id: player.id,
+      badge: player.badge_code,
+      name: player.name,
+      year: String(player.year_of_birth),
     });
+    this.view.set('form');
   }
 
-  onCancelEdit(): void {
-    this.editingId.set(null);
-    this.form.reset({ year_of_birth: new Date().getFullYear() });
+  protected setName(value: string): void {
+    this.draft.update((d) => ({ ...d, name: value }));
   }
 
-  onAddNew(): void {
-    this.editingId.set(null);
-    this.form.reset({ year_of_birth: new Date().getFullYear() });
-    this.showAddForm.set(true);
+  protected setYear(value: string): void {
+    this.draft.update((d) => ({ ...d, year: value.replace(/[^0-9]/g, '').slice(0, 4) }));
   }
 
-  onCancelAdd(): void {
-    this.showAddForm.set(false);
-    this.form.reset({ year_of_birth: new Date().getFullYear() });
+  protected cancel(): void {
+    this.view.set('list');
   }
 
-  async onSave(): Promise<void> {
-    if (this.form.invalid) return;
-    this.loading.set(true);
-    this.error.set(null);
-    const val = this.form.getRawValue() as {
-      first_name: string;
-      last_name: string;
-      year_of_birth: number;
-    };
-    try {
-      const id = this.editingId();
-      if (id) {
-        await this.playerService.update(id, val);
-        this.editingId.set(null);
-      } else {
-        await this.playerService.create(val);
-        this.showAddForm.set(false);
-      }
-      this.form.reset({ year_of_birth: new Date().getFullYear() });
-    } catch (e: unknown) {
-      this.error.set(e instanceof Error ? e.message : 'An error occurred');
-    } finally {
-      this.loading.set(false);
+  protected async save(): Promise<void> {
+    const draft = this.draft();
+    const name = draft.name.trim();
+    const year = parseInt(draft.year, 10);
+    if (name.length < 2) {
+      this.toast.show(this.transloco.translate('players.toasts.nameRequired'), 'x');
+      return;
     }
+    if (!year || year < 2008 || year > 2022) {
+      this.toast.show(this.transloco.translate('players.toasts.yearInvalid'), 'x');
+      return;
+    }
+    if (draft.id) {
+      await this.playerService.update(draft.id, { name, year_of_birth: year });
+      this.toast.show(this.transloco.translate('players.toasts.updated'));
+    } else {
+      await this.playerService.create({ name, year_of_birth: year, badge_code: draft.badge });
+      this.toast.show(this.transloco.translate('players.toasts.created'));
+    }
+    this.view.set('list');
   }
 
-  async onDelete(id: string): Promise<void> {
-    if (!confirm(this.t.translate('players.confirmDelete'))) return;
-    this.loading.set(true);
-    this.error.set(null);
-    try {
-      await this.playerService.remove(id);
-    } catch (e: unknown) {
-      this.error.set(e instanceof Error ? e.message : 'An error occurred');
-    } finally {
-      this.loading.set(false);
-    }
+  protected async deletePlayer(): Promise<void> {
+    const draft = this.draft();
+    if (!draft.id) return;
+    const confirmed = await this.confirmService.confirm({
+      title: this.transloco.translate('players.confirmDelete.title'),
+      message: this.transloco.translate('players.confirmDelete.message', { name: draft.name }),
+      confirmLabel: this.transloco.translate('players.confirmDelete.confirm'),
+      cancelLabel: this.transloco.translate('common.cancel'),
+      danger: true,
+    });
+    if (!confirmed) return;
+    await this.playerService.remove(draft.id);
+    this.toast.show(this.transloco.translate('players.toasts.deleted'), 'trash-2');
+    this.view.set('list');
   }
 }

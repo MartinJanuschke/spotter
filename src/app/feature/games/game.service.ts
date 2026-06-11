@@ -1,5 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 import { supabase } from '../../core/supabase/supabase.client';
+import { isUuid } from '../../core/util/format';
 import type { Game, GameInsert, GameUpdate } from '../../core/models/types';
 
 @Injectable({ providedIn: 'root' })
@@ -11,6 +12,14 @@ export class GameService {
     const { data, error } = await supabase.from('games').select('*').order('name');
     if (error) throw error;
     this._games.set(data);
+  }
+
+  /** Resolve a scanned station QR payload (a game UUID) to a game, if valid. */
+  async findById(id: string): Promise<Game | null> {
+    if (!isUuid(id)) return null;
+    const { data, error } = await supabase.from('games').select('*').eq('id', id).maybeSingle();
+    if (error) throw error;
+    return data;
   }
 
   async create(data: GameInsert): Promise<void> {

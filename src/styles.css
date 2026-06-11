@@ -1,10 +1,211 @@
-/* You can add global styles to this file, and also import other style files */
+/* Spotter Cup — global styles built on the Spotter design system tokens. */
 
-@import "tailwindcss";
+@import 'tailwindcss';
 
-html, body {
+/* ---- Webfonts (self-hosted woff2, latin subset) ---- */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/space-grotesk-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/space-grotesk-500.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/space-grotesk-600.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/space-grotesk-700.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Hanken Grotesk';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/hanken-grotesk-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Hanken Grotesk';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/hanken-grotesk-500.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Hanken Grotesk';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/hanken-grotesk-600.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Hanken Grotesk';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/hanken-grotesk-700.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Hanken Grotesk';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url('/fonts/hanken-grotesk-800.woff2') format('woff2');
+}
+
+/* ---- Design tokens (verbatim from the Spotter design system) ---- */
+:root {
+  /* Brand */
+  --red-500: #d8202e;
+  --red-400: #ed4756;
+  --red-600: #b5121f;
+  --red-700: #8c0d17;
+
+  --ink-900: #101213;
+  --ink-800: #1b1e20;
+  --ink-700: #2a2e30;
+
+  /* Neutral ramp (warm grey-green) */
+  --n-0: #ffffff;
+  --n-25: #fafbf8;
+  --n-50: #f4f6f1;
+  --n-100: #eceee7;
+  --n-200: #e1e3db;
+  --n-300: #cbcec4;
+  --n-400: #a9ada1;
+  --n-500: #84887c;
+  --n-600: #62655b;
+  --n-700: #44473f;
+  --n-800: #292b25;
+
+  /* Semantic status */
+  --live-500: #00c16a;
+  --live-50: #e4f8ee;
+  --warn-500: #ff8a3d;
+  --warn-50: #fff0e3;
+  --danger-500: #ff4d2e;
+  --danger-50: #ffeae5;
+  --info-500: #2e8bff;
+  --info-50: #e6f0ff;
+
+  /* Achievement tiers */
+  --tier-bronze: #c98a4b;
+  --tier-silver: #9aa0a6;
+  --tier-gold: #e8b22e;
+  --tier-elite: var(--red-500);
+
+  /* Semantic aliases */
+  --bg-app: var(--n-25);
+  --surface-card: var(--n-0);
+  --surface-sunken: var(--n-50);
+  --surface-inverse: var(--ink-900);
+
+  --text-strong: var(--ink-900);
+  --text-body: var(--n-800);
+  --text-muted: var(--n-500);
+  --text-on-dark: #ffffff;
+  --text-on-accent: #ffffff;
+  --text-on-dark-muted: rgba(255, 255, 255, 0.62);
+
+  --border-subtle: var(--n-200);
+  --border-strong: var(--n-300);
+  --border-inverse: rgba(255, 255, 255, 0.12);
+
+  --accent: var(--red-500);
+  --accent-strong: var(--red-600);
+  --accent-text: var(--red-700);
+
+  --focus-ring: rgba(216, 32, 46, 0.45);
+
+  /* Typography */
+  --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Hanken Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --ls-tighter: -0.04em;
+  --ls-tight: -0.02em;
+  --ls-overline: 0.18em;
+  --num-features: 'tnum' 1, 'lnum' 1;
+
+  /* Radius */
+  --r-xs: 6px;
+  --r-sm: 10px;
+  --r-md: 14px;
+  --r-lg: 18px;
+  --r-xl: 24px;
+  --r-2xl: 30px;
+  --r-pill: 999px;
+
+  /* Shadows */
+  --shadow-xs: 0 1px 2px rgba(16, 18, 19, 0.05);
+  --shadow-sm: 0 1px 2px rgba(16, 18, 19, 0.04), 0 2px 6px -2px rgba(16, 18, 19, 0.08);
+  --shadow-md: 0 2px 4px rgba(16, 18, 19, 0.04), 0 10px 24px -12px rgba(16, 18, 19, 0.18);
+  --shadow-lg: 0 6px 12px -6px rgba(16, 18, 19, 0.1), 0 24px 48px -24px rgba(16, 18, 19, 0.28);
+  --shadow-accent: 0 8px 24px -10px rgba(216, 32, 46, 0.45);
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0.05, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-fast: 120ms;
+  --dur-base: 200ms;
+  --dur-slow: 320ms;
+
+  /* Layout */
+  --app-max-w: 440px;
+  --gutter: 20px;
+}
+
+/* Ergonomic Tailwind mapping — everything else via arbitrary-var classes
+   like bg-(--surface-card) / rounded-(--r-xl). */
+@theme inline {
+  --color-ink-900: var(--ink-900);
+  --color-red-500: var(--red-500);
+  --color-live-500: var(--live-500);
+  --color-live-50: var(--live-50);
+  --color-card: var(--surface-card);
+  --color-sunken: var(--surface-sunken);
+  --color-app: var(--bg-app);
+  --color-strong: var(--text-strong);
+  --color-body-text: var(--text-body);
+  --color-muted: var(--text-muted);
+  --color-border-subtle: var(--border-subtle);
+  --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Hanken Grotesk', ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ---- Base ---- */
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+html,
+body {
   height: 100%;
-  overflow: hidden;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text-body);
+  background: var(--surface-sunken);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: var(--num-features);
 }
 
 app-root {
@@ -12,6 +213,195 @@ app-root {
   height: 100%;
 }
 
-.safe-bottom {
-  padding-bottom: env(safe-area-inset-bottom);
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  color: var(--text-strong);
+  line-height: 1.2;
+  letter-spacing: var(--ls-tight);
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: var(--red-500);
+  color: #fff;
+}
+
+/* ---- Reusable design-system pieces ---- */
+@layer components {
+  /* Overline / eyebrow */
+  .sp-overline {
+    font-family: var(--font-display);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: var(--ls-overline);
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  /* Instrument numerals */
+  .sp-num {
+    font-family: var(--font-display);
+    font-feature-settings: var(--num-features);
+    letter-spacing: var(--ls-tight);
+  }
+
+  /* Filter chip / tag (prototype tagStyle) */
+  .sp-chip {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 9px 15px;
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1;
+    border-radius: var(--r-pill);
+    cursor: pointer;
+    white-space: nowrap;
+    background: var(--surface-card);
+    color: var(--text-body);
+    border: 1.5px solid var(--border-subtle);
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      background var(--dur-base) var(--ease-out),
+      color var(--dur-base) var(--ease-out);
+  }
+
+  .sp-chip-active {
+    background: var(--ink-900);
+    color: var(--text-on-dark);
+    border-color: var(--ink-900);
+  }
+
+  /* Standard 52px input */
+  .sp-input {
+    width: 100%;
+    height: 52px;
+    padding: 0 16px;
+    border-radius: var(--r-md);
+    border: 1.5px solid var(--border-subtle);
+    background: var(--surface-card);
+    font-family: var(--font-body);
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-strong);
+    outline: none;
+  }
+
+  .sp-input:focus {
+    border-color: var(--ink-900);
+  }
+
+  /* Hidden scrollbar scroll areas */
+  .sp-scroll::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+  .sp-scroll {
+    scrollbar-width: none;
+  }
+}
+
+/* ---- Keyframes (from the design) ---- */
+@keyframes sp-scanline {
+  0% {
+    transform: translateY(-2px);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(212px);
+    opacity: 0;
+  }
+}
+@keyframes sp-pop {
+  0% {
+    transform: scale(0.72);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+@keyframes sp-up {
+  0% {
+    transform: translateY(8px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes sp-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes sp-toast {
+  0% {
+    transform: translate(-50%, 16px);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---- Print: only the station QR sheet ---- */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .sp-print-qr,
+  .sp-print-qr * {
+    visibility: visible;
+  }
+  .sp-print-qr {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }

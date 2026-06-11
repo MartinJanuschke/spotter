@@ -1,20 +1,16 @@
 import type { Player, Game } from './types';
 
-export interface PlayerRank {
+export type LeaderboardMode = 'single' | 'overall';
+
+/** Single-game mode: a player's best raw value for the selected game. */
+export interface SingleResult {
   player: Player;
-  best_value: number;
-  rank: number;
+  value: number;
+}
+
+/** Overall mode: best normalized result (0–1000) and the game that produced it. */
+export interface OverallResult {
+  player: Player;
   points: number;
-}
-
-export interface GameLeaderboard {
   game: Game;
-  rankings: PlayerRank[];
-}
-
-export interface OverallRank {
-  player: Player;
-  total_points: number;
-  rank: number;
-  game_points: Record<string, number | undefined>;
 }

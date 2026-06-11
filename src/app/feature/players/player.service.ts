@@ -8,13 +8,19 @@ export class PlayerService {
   readonly players = this._players.asReadonly();
 
   async load(): Promise<void> {
+    const { data, error } = await supabase.from('players').select('*').order('name');
+    if (error) throw error;
+    this._players.set(data);
+  }
+
+  async findByBadge(badgeCode: string): Promise<Player | null> {
     const { data, error } = await supabase
       .from('players')
       .select('*')
-      .order('last_name')
-      .order('first_name');
+      .eq('badge_code', badgeCode)
+      .maybeSingle();
     if (error) throw error;
-    this._players.set(data);
+    return data;
   }
 
   async create(data: PlayerInsert): Promise<void> {

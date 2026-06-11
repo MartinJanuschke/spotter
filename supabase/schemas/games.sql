@@ -2,6 +2,8 @@ create table public.games (
   id               uuid primary key default gen_random_uuid(),
   name             text not null unique,
   higher_is_better boolean not null default true,
+  unit             text not null default '',
+  tries            smallint not null default 3 check (tries between 1 and 10),
   created_at       timestamptz not null default now(),
   updated_at       timestamptz not null default now()
 );

@@ -1,0 +1,125 @@
+@switch (view()) {
+  @case ('list') {
+    <div class="px-5 pt-[18px] pb-7">
+      <div class="sp-overline">{{ 'categories.eyebrow' | transloco }}</div>
+      <h1
+        class="mt-1.5 mb-0.5 font-display text-[30px] font-bold tracking-[-0.03em] text-(--text-strong)"
+      >
+        {{ 'categories.title' | transloco }}
+      </h1>
+      <p class="mb-4 text-[13.5px] text-(--text-muted)">{{ 'categories.subtitle' | transloco }}</p>
+
+      <sp-button variant="primary" size="lg" [block]="true" (pressed)="newCategory()">
+        <svg lucidePlus [size]="18" [strokeWidth]="2.4"></svg>
+        {{ 'categories.new' | transloco }}
+      </sp-button>
+
+      <div class="mt-[18px] flex flex-col gap-2.5">
+        @for (category of categoryService.categories(); track category.id) {
+          <div
+            class="flex items-center gap-[13px] rounded-(--r-lg) border border-(--border-subtle) bg-(--surface-card) p-3.5 shadow-(--shadow-sm)"
+          >
+            <span
+              class="sp-num inline-flex h-[46px] w-[46px] flex-none items-center justify-center rounded-[13px] bg-(--surface-sunken) text-sm font-bold text-(--ink-900)"
+            >
+              {{ category.name }}
+            </span>
+            <span class="min-w-0 flex-1">
+              <span class="block font-body text-[15.5px] font-semibold text-(--text-strong)">
+                {{ 'categories.yearsOf' | transloco: { years: yearsText(category) } }}
+              </span>
+              <span class="mt-0.5 block text-[12.5px] text-(--text-muted)">
+                {{ 'categories.members' | transloco: { count: memberCount(category) } }}
+              </span>
+            </span>
+            <button
+              type="button"
+              (click)="editCategory(category)"
+              aria-label="Bearbeiten"
+              class="inline-flex h-[34px] w-[34px] flex-none cursor-pointer items-center justify-center rounded-[10px] border-0 bg-(--surface-sunken) [-webkit-tap-highlight-color:transparent]"
+            >
+              <svg lucidePencil [size]="15" [strokeWidth]="2.2" class="text-(--n-500)"></svg>
+            </button>
+            <button
+              type="button"
+              (click)="deleteCategory(category)"
+              aria-label="Löschen"
+              class="inline-flex h-[34px] w-[34px] flex-none cursor-pointer items-center justify-center rounded-[10px] border-0 bg-transparent hover:bg-(--danger-50) [-webkit-tap-highlight-color:transparent]"
+            >
+              <svg lucideTrash2 [size]="17" [strokeWidth]="2.2" class="text-(--n-500)"></svg>
+            </button>
+          </div>
+        }
+      </div>
+
+      <div class="mt-3.5 flex gap-2.5 rounded-(--r-md) bg-(--surface-sunken) px-3.5 py-[13px]">
+        <span class="mt-px flex-none">
+          <svg lucideCalendarDays [size]="18" [strokeWidth]="2.2" class="text-(--ink-900)"></svg>
+        </span>
+        <span class="text-[12.5px] leading-[1.45] text-(--text-body)">
+          {{ 'categories.example' | transloco }}
+        </span>
+      </div>
+    </div>
+  }
+
+  @case ('form') {
+    <div class="px-5 pt-3.5 pb-7">
+      <button
+        type="button"
+        (click)="cancel()"
+        class="inline-flex cursor-pointer items-center gap-0.5 border-0 bg-transparent py-1.5 pr-2 font-body text-sm font-semibold text-(--text-strong) [-webkit-tap-highlight-color:transparent]"
+      >
+        <svg lucideChevronLeft [size]="20" [strokeWidth]="2.4"></svg>
+        {{ 'common.back' | transloco }}
+      </button>
+      <h1
+        class="mt-1.5 mb-3.5 font-display text-[26px] font-bold tracking-[-0.03em] text-(--text-strong)"
+      >
+        {{ (draft().id ? 'categories.form.editTitle' : 'categories.form.title') | transloco }}
+      </h1>
+
+      <label class="mb-[7px] block font-body text-[13px] font-semibold text-(--text-strong)">
+        {{ 'categories.form.name' | transloco }}
+      </label>
+      <input
+        class="sp-input"
+        [placeholder]="'categories.form.namePlaceholder' | transloco"
+        [ngModel]="draft().name"
+        (ngModelChange)="setName($event)"
+        autocomplete="off"
+      />
+
+      <div class="mt-[18px] mb-2.5 flex items-baseline justify-between px-0.5">
+        <label class="font-body text-[13px] font-semibold text-(--text-strong)">
+          {{ 'categories.form.years' | transloco }}
+        </label>
+        <span class="sp-num text-xs font-semibold tracking-[.02em] text-(--accent-text)">
+          {{ selectedYearsText() }}
+        </span>
+      </div>
+      <div class="grid grid-cols-3 gap-[9px]">
+        @for (year of yearChoices; track year) {
+          <button
+            type="button"
+            (click)="toggleYear(year)"
+            class="sp-chip w-full"
+            [class.sp-chip-active]="draft().years.includes(year)"
+          >
+            {{ year }}
+          </button>
+        }
+      </div>
+
+      <div class="mt-6 flex gap-2.5">
+        <sp-button variant="secondary" size="lg" (pressed)="cancel()">
+          {{ 'common.cancel' | transloco }}
+        </sp-button>
+        <sp-button variant="primary" size="lg" [block]="true" (pressed)="save()">
+          {{ 'categories.form.save' | transloco }}
+          <svg lucideCheck [size]="18" [strokeWidth]="2.4"></svg>
+        </sp-button>
+      </div>
+    </div>
+  }
+}

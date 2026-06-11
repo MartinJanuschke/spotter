@@ -10,3 +10,7 @@ export type GameUpdate = Database['public']['Tables']['games']['Update'];
 
 export type Score = Database['public']['Tables']['scores']['Row'];
 export type ScoreInsert = Database['public']['Tables']['scores']['Insert'];
+
+export type Category = Database['public']['Tables']['categories']['Row'];
+export type CategoryInsert = Database['public']['Tables']['categories']['Insert'];
+export type CategoryUpdate = Database['public']['Tables']['categories']['Update'];

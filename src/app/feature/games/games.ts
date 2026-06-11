@@ -1,89 +1,151 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
-import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
+import QRCode from 'qrcode';
 import { GameService } from './game.service';
+import { ToastService } from '../../ui/toast/toast.service';
+import { ConfirmService } from '../../ui/confirm-dialog/confirm.service';
+import { SpButton } from '../../ui/button/button';
+import {
+  SpSegmentedControl,
+  type SegmentOption,
+} from '../../ui/segmented-control/segmented-control';
 import type { Game } from '../../core/models/types';
+import {
+  LucideCheck,
+  LucideChevronLeft,
+  LucideFlagTriangleRight,
+  LucidePlus,
+  LucidePrinter,
+  LucideQrCode,
+  LucideTarget,
+  LucideTrash2,
+  LucideTrendingDown,
+  LucideTrendingUp,
+  LucideX,
+} from '../../ui/icons';
+
+interface GameDraft {
+  name: string;
+  unit: string;
+  dir: 'high' | 'low';
+  tries: number;
+}
 
 @Component({
   selector: 'app-games',
-  standalone: true,
-  imports: [ReactiveFormsModule, TranslocoPipe],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    FormsModule,
+    TranslocoPipe,
+    SpButton,
+    SpSegmentedControl,
+    LucideCheck,
+    LucideChevronLeft,
+    LucideFlagTriangleRight,
+    LucidePlus,
+    LucidePrinter,
+    LucideQrCode,
+    LucideTarget,
+    LucideTrash2,
+    LucideTrendingDown,
+    LucideTrendingUp,
+    LucideX,
+  ],
   templateUrl: './games.html',
 })
 export class GamesPage implements OnInit {
-  private readonly gameService = inject(GameService);
-  private readonly fb = inject(FormBuilder);
-  private readonly t = inject(TranslocoService);
+  protected readonly gameService = inject(GameService);
+  private readonly toast = inject(ToastService);
+  private readonly confirmService = inject(ConfirmService);
+  private readonly transloco = inject(TranslocoService);
 
-  protected readonly games = this.gameService.games;
-  protected readonly editingId = signal<string | null>(null);
-  protected readonly showAddForm = signal(false);
-  protected readonly error = signal<string | null>(null);
-  protected readonly loading = signal(false);
+  protected readonly view = signal<'list' | 'form'>('list');
+  protected readonly draft = signal<GameDraft>({ name: '', unit: '', dir: 'high', tries: 3 });
+  protected readonly qrGame = signal<Game | null>(null);
+  protected readonly qrDataUrl = signal<string>('');
 
-  protected readonly form = this.fb.group({
-    name: ['', Validators.required],
-    higher_is_better: [true],
-  });
+  protected readonly dirOptions: SegmentOption[] = [
+    { label: 'games.form.higherIsBetter', value: 'high' },
+    { label: 'games.form.lowerIsBetter', value: 'low' },
+  ];
 
-  async ngOnInit(): Promise<void> {
-    await this.gameService.load();
+  ngOnInit(): void {
+    void this.gameService.load();
   }
 
-  onEdit(game: Game): void {
-    this.editingId.set(game.id);
-    this.showAddForm.set(false);
-    this.form.setValue({ name: game.name, higher_is_better: game.higher_is_better });
+  protected newGame(): void {
+    this.draft.set({ name: '', unit: '', dir: 'high', tries: 3 });
+    this.view.set('form');
   }
 
-  onCancelEdit(): void {
-    this.editingId.set(null);
-    this.form.reset({ higher_is_better: true });
+  protected setName(value: string): void {
+    this.draft.update((d) => ({ ...d, name: value }));
   }
 
-  onAddNew(): void {
-    this.editingId.set(null);
-    this.form.reset({ higher_is_better: true });
-    this.showAddForm.set(true);
+  protected setUnit(value: string): void {
+    this.draft.update((d) => ({ ...d, unit: value }));
   }
 
-  onCancelAdd(): void {
-    this.showAddForm.set(false);
-    this.form.reset({ higher_is_better: true });
+  protected setDir(value: string): void {
+    this.draft.update((d) => ({ ...d, dir: value as 'high' | 'low' }));
   }
 
-  async onSave(): Promise<void> {
-    if (this.form.invalid) return;
-    this.loading.set(true);
-    this.error.set(null);
-    const val = this.form.getRawValue() as { name: string; higher_is_better: boolean };
-    try {
-      const id = this.editingId();
-      if (id) {
-        await this.gameService.update(id, val);
-        this.editingId.set(null);
-      } else {
-        await this.gameService.create(val);
-        this.showAddForm.set(false);
-      }
-      this.form.reset({ higher_is_better: true });
-    } catch (e: unknown) {
-      this.error.set(e instanceof Error ? e.message : 'An error occurred');
-    } finally {
-      this.loading.set(false);
+  protected stepTries(delta: number): void {
+    this.draft.update((d) => ({ ...d, tries: Math.max(1, Math.min(10, d.tries + delta)) }));
+  }
+
+  protected cancel(): void {
+    this.view.set('list');
+  }
+
+  protected async save(): Promise<void> {
+    const draft = this.draft();
+    const name = draft.name.trim();
+    const unit = draft.unit.trim();
+    if (name.length < 2) {
+      this.toast.show(this.transloco.translate('games.toasts.nameRequired'), 'x');
+      return;
     }
+    if (!unit) {
+      this.toast.show(this.transloco.translate('games.toasts.unitRequired'), 'x');
+      return;
+    }
+    await this.gameService.create({
+      name,
+      unit,
+      higher_is_better: draft.dir === 'high',
+      tries: draft.tries,
+    });
+    this.toast.show(this.transloco.translate('games.toasts.created'));
+    this.view.set('list');
   }
 
-  async onDelete(id: string): Promise<void> {
-    if (!confirm(this.t.translate('games.confirmDelete'))) return;
-    this.loading.set(true);
-    this.error.set(null);
-    try {
-      await this.gameService.remove(id);
-    } catch (e: unknown) {
-      this.error.set(e instanceof Error ? e.message : 'An error occurred');
-    } finally {
-      this.loading.set(false);
-    }
+  protected async deleteGame(game: Game): Promise<void> {
+    const confirmed = await this.confirmService.confirm({
+      title: this.transloco.translate('games.confirmDelete.title'),
+      message: this.transloco.translate('games.confirmDelete.message', { name: game.name }),
+      confirmLabel: this.transloco.translate('games.confirmDelete.confirm'),
+      cancelLabel: this.transloco.translate('common.cancel'),
+      danger: true,
+    });
+    if (!confirmed) return;
+    await this.gameService.remove(game.id);
+    this.toast.show(this.transloco.translate('games.toasts.deleted'), 'trash-2');
+  }
+
+  protected async showQr(game: Game): Promise<void> {
+    const dataUrl = await QRCode.toDataURL(game.id, { width: 640, margin: 2 });
+    this.qrDataUrl.set(dataUrl);
+    this.qrGame.set(game);
+  }
+
+  protected closeQr(): void {
+    this.qrGame.set(null);
+    this.qrDataUrl.set('');
+  }
+
+  protected print(): void {
+    window.print();
   }
 }

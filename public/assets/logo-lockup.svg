@@ -1,0 +1,7 @@
+<svg width="360" height="96" viewBox="0 0 360 96" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Spotter">
+  <rect x="0" y="12" width="72" height="72" rx="20" fill="#101213"></rect>
+  <circle cx="36" cy="48" r="20" stroke="#D8202E" stroke-width="4"></circle>
+  <path d="M36 21V30M36 66V75M9 48H18M54 48H63" stroke="#D8202E" stroke-width="4" stroke-linecap="round"></path>
+  <circle cx="36" cy="48" r="6.5" fill="#D8202E"></circle>
+  <text x="92" y="62" font-family="&#39;Space Grotesk&#39;, sans-serif" font-size="44" font-weight="700" letter-spacing="-1.5" fill="#101213">spotter</text>
+</svg>

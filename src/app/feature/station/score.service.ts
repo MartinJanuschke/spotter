@@ -7,6 +7,9 @@ export class ScoreService {
   private readonly _scoresForContext = signal<Score[]>([]);
   readonly scoresForContext = this._scoresForContext.asReadonly();
 
+  private readonly _allScores = signal<Score[]>([]);
+  readonly allScores = this._allScores.asReadonly();
+
   async loadForPlayerGame(playerId: string, gameId: string): Promise<void> {
     const { data, error } = await supabase
       .from('scores')
@@ -32,10 +35,14 @@ export class ScoreService {
     await this.loadForPlayerGame(playerId, gameId);
   }
 
-  async remove(scoreId: string, playerId: string, gameId: string): Promise<void> {
-    const { error } = await supabase.from('scores').delete().eq('id', scoreId);
+  async loadAll(): Promise<void> {
+    const { data, error } = await supabase.from('scores').select('*');
     if (error) throw error;
-    await this.loadForPlayerGame(playerId, gameId);
+    this._allScores.set(data);
+  }
+
+  countForPlayer(playerId: string): number {
+    return this._allScores().filter((s) => s.player_id === playerId).length;
   }
 
   async loadAllForLeaderboard(): Promise<Score[]> {

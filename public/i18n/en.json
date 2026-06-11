@@ -1,86 +1,198 @@
 {
-  "nav": {
-    "title": "Spotter",
-    "leaderboard": "Leaderboard",
-    "players": "Players",
-    "games": "Games",
-    "scores": "Scores"
+  "shell": {
+    "live": "Spotter Cup",
+    "tabs": {
+      "players": "Players",
+      "games": "Games",
+      "station": "Station",
+      "leaderboard": "Leaderboard",
+      "categories": "Categories"
+    }
   },
   "common": {
-    "save": "Save",
+    "back": "Back",
     "cancel": "Cancel",
-    "edit": "Edit",
-    "delete": "Delete",
-    "loading": "Loading..."
+    "delete": "Delete"
+  },
+  "pin": {
+    "eyebrow": "Admin",
+    "title": "Enter PIN",
+    "hint": "This area is for the organising team",
+    "placeholder": "····",
+    "unlock": "Unlock",
+    "wrong": "Wrong PIN"
+  },
+  "scanner": {
+    "manualEntry": "Enter code manually",
+    "manualPlaceholder": "e.g. SP-1042",
+    "simulate": "Simulate scan",
+    "cameraDenied": "Camera unavailable — enter the code manually below."
   },
   "players": {
+    "eyebrow": "Admin",
     "title": "Players",
-    "add": "+ Add Player",
-    "newPlayer": "New Player",
-    "firstName": "First name",
-    "lastName": "Last name",
-    "yearOfBirth": "Year of birth",
-    "firstNamePlaceholder": "Max",
-    "lastNamePlaceholder": "Mustermann",
-    "name": "Name",
-    "year": "Year of birth",
-    "empty": "No players yet. Add one to get started.",
-    "confirmDelete": "Delete this player and all their scores?"
+    "subtitle": "{{count}} players · no sign-up needed",
+    "scanNew": "Scan new player",
+    "values": "{{count}} results",
+    "scan": {
+      "step": "Step 1 of 2",
+      "title": "Scan badge",
+      "hint": "Hold the player badge in front of the camera"
+    },
+    "form": {
+      "step": "Step 2 of 2",
+      "title": "Player details",
+      "editTitle": "Edit player",
+      "badgeDetected": "Badge detected",
+      "connected": "Connected",
+      "name": "Name",
+      "namePlaceholder": "First and last name",
+      "year": "Year of birth",
+      "yearPlaceholder": "e.g. 2016",
+      "yearHint": "Automatically determines the age category for the leaderboard.",
+      "save": "Save player"
+    },
+    "confirmDelete": {
+      "title": "Delete player?",
+      "message": "{{name}} and all recorded results will be deleted.",
+      "confirm": "Delete"
+    },
+    "toasts": {
+      "created": "Player created",
+      "updated": "Player updated",
+      "deleted": "Player deleted",
+      "nameRequired": "Please enter a name",
+      "yearInvalid": "Enter a valid year of birth"
+    }
   },
   "games": {
+    "eyebrow": "Admin",
     "title": "Games",
-    "add": "+ Add Game",
-    "newGame": "New Game",
-    "game": "Game",
-    "name": "Game name",
-    "namePlaceholder": "Lattenschießen",
-    "scoring": "Scoring",
-    "higherIsBetter": "Higher score is better",
-    "higherLabel": "↑ Higher is better",
-    "lowerLabel": "↓ Lower is better",
-    "empty": "No games yet. Add one to get started.",
-    "confirmDelete": "Delete this game and all its scores?"
+    "subtitle": "{{count}} disciplines · stations in the tournament",
+    "new": "Create new game",
+    "higherBetter": "Higher = better",
+    "lowerBetter": "Lower = better",
+    "tries": "{{count}} attempts",
+    "showQr": "Show QR",
+    "form": {
+      "title": "New game",
+      "name": "Discipline name",
+      "namePlaceholder": "e.g. Shot speed",
+      "unit": "Unit",
+      "unitPlaceholder": "e.g. km/h, hits, s",
+      "scoring": "Scoring",
+      "higherIsBetter": "Higher is better",
+      "lowerIsBetter": "Lower is better",
+      "hintHigher": "The highest result leads the leaderboard — e.g. speed or hits.",
+      "hintLower": "The lowest result leads the leaderboard — e.g. time or sprint.",
+      "triesLabel": "Attempts per player",
+      "triesHint": "Required rounds at the station. The best value counts for the leaderboard — extra attempts are possible.",
+      "save": "Save game",
+      "less": "Less",
+      "more": "More"
+    },
+    "qr": {
+      "eyebrow": "Station QR",
+      "hint": "Post at the station — operators scan this code in the Station tab.",
+      "print": "Print",
+      "close": "Close"
+    },
+    "confirmDelete": {
+      "title": "Delete game?",
+      "message": "“{{name}}” and all recorded results will be lost.",
+      "confirm": "Delete"
+    },
+    "toasts": {
+      "created": "Game created",
+      "deleted": "Game deleted",
+      "nameRequired": "Please enter a game name",
+      "unitRequired": "Please enter a unit"
+    }
   },
-  "scores": {
-    "title": "Enter Scores",
-    "player": "Player",
-    "game": "Game",
-    "selectPlayer": "— Select player —",
-    "selectGame": "— Select game —",
-    "attempts": "Attempts",
-    "higherNote": "(higher is better)",
-    "lowerNote": "(lower is better)",
-    "best": "Best",
-    "attemptNo": "#",
-    "score": "Score",
-    "bestLabel": "★ best",
-    "remove": "Remove",
-    "newScore": "New score",
-    "newScorePlaceholder": "e.g. 42",
-    "addAttempt": "Add Attempt",
-    "noAttempts": "No attempts yet."
-  },
-  "register": {
-    "title": "Create your profile",
-    "subtitle": "Welcome! Enter your details to get started.",
-    "submit": "Register",
-    "success": "You're registered!",
-    "redirecting": "Taking you to the leaderboard…",
-    "alreadyRegistered": "Already registered",
-    "alreadyRegisteredHint": "This QR code has already been used to create a player.",
-    "toLeaderboard": "Go to Leaderboard"
+  "station": {
+    "scanGame": {
+      "step": "Station · Step 1",
+      "title": "Scan game",
+      "hint": "Scan this station's QR code to load the discipline"
+    },
+    "active": "Active station",
+    "change": "Change",
+    "scanPlayer": {
+      "step": "Step 2",
+      "title": "Scan player",
+      "hint": "Scan the next player's badge"
+    },
+    "attempts": "Attempts {{count}} / {{total}}",
+    "best": "Best {{value}}",
+    "bestLabel": "Best",
+    "attempt": "Attempt {{n}}",
+    "attemptOf": "Attempt {{n}} of {{total}}",
+    "extraAttempt": "Extra attempt · attempt {{n}}",
+    "saveAttempt": "Save attempt",
+    "skip": "Skip",
+    "allDone": "All attempts recorded",
+    "allDoneSub": "Best value {{value}} counts for the leaderboard",
+    "nextPlayer": "Scan next player",
+    "anotherAttempt": "Add another attempt",
+    "changeStation": "Change station",
+    "confirmSkip": {
+      "title": "Skip player?",
+      "message": "Attempts saved so far are kept.",
+      "confirm": "Skip"
+    },
+    "toasts": {
+      "attemptSaved": "Attempt {{n}} saved",
+      "invalidValue": "Please enter a value",
+      "unknownGame": "Not a valid station code",
+      "unknownBadge": "Badge not found — create the player first"
+    }
   },
   "leaderboard": {
+    "eyebrow": "Spotter Cup · Live",
     "title": "Leaderboard",
-    "overall": "Overall",
-    "rank": "Rank",
-    "player": "Player",
-    "totalPoints": "Total pts",
-    "bestScore": "Best score",
+    "subtitle": "Public · visible to everyone",
+    "modeSingle": "Single game",
+    "modeOverall": "Overall",
+    "category": "Category",
+    "all": "All",
+    "players": "{{count}} players",
+    "best": "Best",
     "points": "Points",
-    "empty": "No scores entered yet.",
-    "gameEmpty": "No scores for this game yet.",
-    "higherBetter": "↑ Higher is better",
-    "lowerBetter": "↓ Lower is better"
+    "pointsUnit": "pts",
+    "bestOf": "Best · {{game}}",
+    "empty": {
+      "title": "No results yet",
+      "message": "Nothing has been measured in this category yet."
+    }
+  },
+  "categories": {
+    "eyebrow": "Admin",
+    "title": "Categories",
+    "subtitle": "Age classes for the leaderboard · by year of birth",
+    "new": "New category",
+    "yearsOf": "Years {{years}}",
+    "members": "{{count}} players in this class",
+    "example": "Example: U9/U10 groups the birth years 2017 and 2016. A player automatically appears in the matching class.",
+    "form": {
+      "title": "New category",
+      "editTitle": "Edit category",
+      "name": "Name",
+      "namePlaceholder": "e.g. U9/U10",
+      "years": "Birth years",
+      "noneSelected": "No years selected yet",
+      "save": "Save category"
+    },
+    "confirmDelete": {
+      "title": "Delete category?",
+      "message": "“{{name}}” will be deleted. Players and results are kept.",
+      "confirm": "Delete"
+    },
+    "toasts": {
+      "created": "Category created",
+      "updated": "Category saved",
+      "deleted": "Category deleted",
+      "nameRequired": "Please enter a name",
+      "yearsRequired": "Select at least one birth year"
+    }
   }
 }

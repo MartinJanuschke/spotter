@@ -1,86 +1,198 @@
 {
-  "nav": {
-    "title": "Spotter",
-    "leaderboard": "Rangliste",
-    "players": "Spieler",
-    "games": "Spiele",
-    "scores": "Punkte"
+  "shell": {
+    "live": "Spotter Cup",
+    "tabs": {
+      "players": "Spieler",
+      "games": "Spiele",
+      "station": "Station",
+      "leaderboard": "Rangliste",
+      "categories": "Kategorien"
+    }
   },
   "common": {
-    "save": "Speichern",
+    "back": "Zurück",
     "cancel": "Abbrechen",
-    "edit": "Bearbeiten",
-    "delete": "Löschen",
-    "loading": "Lade..."
+    "delete": "Löschen"
+  },
+  "pin": {
+    "eyebrow": "Verwaltung",
+    "title": "PIN eingeben",
+    "hint": "Dieser Bereich ist für das Orga-Team",
+    "placeholder": "····",
+    "unlock": "Entsperren",
+    "wrong": "Falsche PIN"
+  },
+  "scanner": {
+    "manualEntry": "Code manuell eingeben",
+    "manualPlaceholder": "z. B. SP-1042",
+    "simulate": "Scan simulieren",
+    "cameraDenied": "Kamera nicht verfügbar — Code unten manuell eingeben."
   },
   "players": {
+    "eyebrow": "Verwaltung",
     "title": "Spieler",
-    "add": "+ Spieler hinzufügen",
-    "newPlayer": "Neuer Spieler",
-    "firstName": "Vorname",
-    "lastName": "Nachname",
-    "yearOfBirth": "Geburtsjahr",
-    "firstNamePlaceholder": "Max",
-    "lastNamePlaceholder": "Mustermann",
-    "name": "Name",
-    "year": "Geburtsjahr",
-    "empty": "Noch keine Spieler. Füge einen hinzu, um loszulegen.",
-    "confirmDelete": "Diesen Spieler und alle Punkte löschen?"
+    "subtitle": "{{count}} Spieler · keine Anmeldung nötig",
+    "scanNew": "Neuen Spieler scannen",
+    "values": "{{count}} Werte",
+    "scan": {
+      "step": "Schritt 1 von 2",
+      "title": "Badge scannen",
+      "hint": "Halte den Spieler-Badge vor die Kamera"
+    },
+    "form": {
+      "step": "Schritt 2 von 2",
+      "title": "Spielerdaten",
+      "editTitle": "Spieler bearbeiten",
+      "badgeDetected": "Badge erkannt",
+      "connected": "Verbunden",
+      "name": "Name",
+      "namePlaceholder": "Vor- und Nachname",
+      "year": "Geburtsjahr",
+      "yearPlaceholder": "z. B. 2016",
+      "yearHint": "Bestimmt automatisch die Alterskategorie für die Rangliste.",
+      "save": "Spieler speichern"
+    },
+    "confirmDelete": {
+      "title": "Spieler löschen?",
+      "message": "{{name}} und alle erfassten Werte werden gelöscht.",
+      "confirm": "Löschen"
+    },
+    "toasts": {
+      "created": "Spieler angelegt",
+      "updated": "Spieler aktualisiert",
+      "deleted": "Spieler gelöscht",
+      "nameRequired": "Bitte einen Namen eingeben",
+      "yearInvalid": "Gültiges Geburtsjahr eingeben"
+    }
   },
   "games": {
+    "eyebrow": "Verwaltung",
     "title": "Spiele",
-    "add": "+ Spiel hinzufügen",
-    "newGame": "Neues Spiel",
-    "game": "Spiel",
-    "name": "Spielname",
-    "namePlaceholder": "Lattenschießen",
-    "scoring": "Wertung",
-    "higherIsBetter": "Höherer Wert ist besser",
-    "higherLabel": "↑ Höherer Wert ist besser",
-    "lowerLabel": "↓ Niedrigerer Wert ist besser",
-    "empty": "Noch keine Spiele. Füge eines hinzu, um loszulegen.",
-    "confirmDelete": "Dieses Spiel und alle Punkte löschen?"
+    "subtitle": "{{count}} Disziplinen · Stationen im Turnier",
+    "new": "Neues Spiel anlegen",
+    "higherBetter": "Höher = besser",
+    "lowerBetter": "Niedriger = besser",
+    "tries": "{{count}} Versuche",
+    "showQr": "QR anzeigen",
+    "form": {
+      "title": "Neues Spiel",
+      "name": "Name der Disziplin",
+      "namePlaceholder": "z. B. Schussgeschwindigkeit",
+      "unit": "Einheit",
+      "unitPlaceholder": "z. B. km/h, Treffer, s",
+      "scoring": "Wertung",
+      "higherIsBetter": "Höher ist besser",
+      "lowerIsBetter": "Niedriger ist besser",
+      "hintHigher": "Das höchste Ergebnis führt die Rangliste an — z. B. Geschwindigkeit oder Treffer.",
+      "hintLower": "Das niedrigste Ergebnis führt die Rangliste an — z. B. Zeit oder Sprint.",
+      "triesLabel": "Versuche pro Spieler",
+      "triesHint": "Pflicht-Durchgänge an der Station. Der beste Wert zählt für die Rangliste — Zusatzversuche sind möglich.",
+      "save": "Spiel speichern",
+      "less": "Weniger",
+      "more": "Mehr"
+    },
+    "qr": {
+      "eyebrow": "Stations-QR",
+      "hint": "An der Station aufhängen — Operatoren scannen diesen Code im Station-Tab.",
+      "print": "Drucken",
+      "close": "Schließen"
+    },
+    "confirmDelete": {
+      "title": "Spiel löschen?",
+      "message": "„{{name}}“ und alle erfassten Werte gehen verloren.",
+      "confirm": "Löschen"
+    },
+    "toasts": {
+      "created": "Spiel erstellt",
+      "deleted": "Spiel gelöscht",
+      "nameRequired": "Bitte einen Spielnamen eingeben",
+      "unitRequired": "Bitte eine Einheit eingeben"
+    }
   },
-  "scores": {
-    "title": "Punkte eintragen",
-    "player": "Spieler",
-    "game": "Spiel",
-    "selectPlayer": "— Spieler wählen —",
-    "selectGame": "— Spiel wählen —",
-    "attempts": "Versuche",
-    "higherNote": "(höher ist besser)",
-    "lowerNote": "(niedriger ist besser)",
-    "best": "Bestes",
-    "attemptNo": "#",
-    "score": "Ergebnis",
-    "bestLabel": "★ bestes",
-    "remove": "Entfernen",
-    "newScore": "Neues Ergebnis",
-    "newScorePlaceholder": "z. B. 42",
-    "addAttempt": "Versuch hinzufügen",
-    "noAttempts": "Noch keine Versuche."
-  },
-  "register": {
-    "title": "Profil erstellen",
-    "subtitle": "Willkommen! Gib deine Daten ein, um loszulegen.",
-    "submit": "Registrieren",
-    "success": "Du bist registriert!",
-    "redirecting": "Du wirst zur Rangliste weitergeleitet…",
-    "alreadyRegistered": "Bereits registriert",
-    "alreadyRegisteredHint": "Dieser QR-Code wurde bereits zur Erstellung eines Spielers verwendet.",
-    "toLeaderboard": "Zur Rangliste"
+  "station": {
+    "scanGame": {
+      "step": "Station · Schritt 1",
+      "title": "Spiel scannen",
+      "hint": "Scanne den QR-Code dieser Station, um die Disziplin zu laden"
+    },
+    "active": "Aktive Station",
+    "change": "Wechseln",
+    "scanPlayer": {
+      "step": "Schritt 2",
+      "title": "Spieler scannen",
+      "hint": "Scanne den Badge des nächsten Spielers"
+    },
+    "attempts": "Versuche {{count}} / {{total}}",
+    "best": "Bestwert {{value}}",
+    "bestLabel": "Best",
+    "attempt": "Versuch {{n}}",
+    "attemptOf": "Versuch {{n}} von {{total}}",
+    "extraAttempt": "Zusatzversuch · Versuch {{n}}",
+    "saveAttempt": "Versuch speichern",
+    "skip": "Überspringen",
+    "allDone": "Alle Versuche erfasst",
+    "allDoneSub": "Bestwert {{value}} zählt für die Rangliste",
+    "nextPlayer": "Nächsten Spieler scannen",
+    "anotherAttempt": "Weiteren Versuch anlegen",
+    "changeStation": "Station wechseln",
+    "confirmSkip": {
+      "title": "Spieler überspringen?",
+      "message": "Bisher gespeicherte Versuche bleiben erhalten.",
+      "confirm": "Überspringen"
+    },
+    "toasts": {
+      "attemptSaved": "Versuch {{n}} gespeichert",
+      "invalidValue": "Bitte einen Wert eingeben",
+      "unknownGame": "Kein gültiger Stations-Code",
+      "unknownBadge": "Badge nicht gefunden — Spieler zuerst anlegen"
+    }
   },
   "leaderboard": {
+    "eyebrow": "Spotter Cup · Live",
     "title": "Rangliste",
-    "overall": "Gesamt",
-    "rank": "Rang",
-    "player": "Spieler",
-    "totalPoints": "Gesamt Pkt.",
-    "bestScore": "Bestes Ergebnis",
+    "subtitle": "Öffentlich · für alle sichtbar",
+    "modeSingle": "Einzelspiel",
+    "modeOverall": "Gesamt",
+    "category": "Kategorie",
+    "all": "Alle",
+    "players": "{{count}} Spieler",
+    "best": "Bestwert",
     "points": "Punkte",
-    "empty": "Noch keine Punkte eingetragen.",
-    "gameEmpty": "Noch keine Punkte für dieses Spiel.",
-    "higherBetter": "↑ Höherer Wert ist besser",
-    "lowerBetter": "↓ Niedrigerer Wert ist besser"
+    "pointsUnit": "Pkt",
+    "bestOf": "Bestwert · {{game}}",
+    "empty": {
+      "title": "Noch keine Ergebnisse",
+      "message": "In dieser Kategorie wurde noch nichts gemessen."
+    }
+  },
+  "categories": {
+    "eyebrow": "Verwaltung",
+    "title": "Kategorien",
+    "subtitle": "Altersklassen für die Rangliste · nach Geburtsjahr",
+    "new": "Neue Kategorie",
+    "yearsOf": "Jahrgänge {{years}}",
+    "members": "{{count}} Spieler in dieser Klasse",
+    "example": "Beispiel: U9/U10 fasst die Geburtsjahre 2017 und 2016 zusammen. Ein Spieler erscheint automatisch in der passenden Klasse.",
+    "form": {
+      "title": "Neue Kategorie",
+      "editTitle": "Kategorie bearbeiten",
+      "name": "Bezeichnung",
+      "namePlaceholder": "z. B. U9/U10",
+      "years": "Geburtsjahre",
+      "noneSelected": "Noch keine Jahrgänge gewählt",
+      "save": "Kategorie speichern"
+    },
+    "confirmDelete": {
+      "title": "Kategorie löschen?",
+      "message": "„{{name}}“ wird gelöscht. Spieler und Werte bleiben erhalten.",
+      "confirm": "Löschen"
+    },
+    "toasts": {
+      "created": "Kategorie erstellt",
+      "updated": "Kategorie gespeichert",
+      "deleted": "Kategorie gelöscht",
+      "nameRequired": "Bitte einen Namen eingeben",
+      "yearsRequired": "Mindestens einen Jahrgang wählen"
+    }
   }
 }
