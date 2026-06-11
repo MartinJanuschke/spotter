@@ -7,6 +7,7 @@ import type { LucideIconData } from '@lucide/angular';
 import { PinService } from '../../core/auth/pin.service';
 import { SpToastHost } from '../../ui/toast/toast-host';
 import { SpConfirmDialog } from '../../ui/confirm-dialog/confirm-dialog';
+import { SpInstallBanner } from '../../ui/install-banner/install-banner';
 import {
   LucideChartColumn,
   LucideDynamicIcon,
@@ -35,6 +36,7 @@ interface TabDef {
     TranslocoPipe,
     SpToastHost,
     SpConfirmDialog,
+    SpInstallBanner,
     LucideDynamicIcon,
     LucideLock,
   ],

@@ -14,6 +14,14 @@
     "cancel": "Cancel",
     "delete": "Delete"
   },
+  "install": {
+    "title": "Install as app",
+    "body": "Spotter Cup on your home screen — opens full screen, without the browser bar.",
+    "action": "Install",
+    "iosShare": "Tap “Share” in Safari",
+    "iosAdd": "Choose “Add to Home Screen”",
+    "dismiss": "Dismiss"
+  },
   "pin": {
     "eyebrow": "Admin",
     "title": "Enter PIN",

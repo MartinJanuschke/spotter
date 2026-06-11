@@ -14,6 +14,14 @@
     "cancel": "Abbrechen",
     "delete": "Löschen"
   },
+  "install": {
+    "title": "Als App installieren",
+    "body": "Spotter Cup auf dem Startbildschirm — startet im Vollbild, ohne Browserleiste.",
+    "action": "Installieren",
+    "iosShare": "In Safari auf „Teilen“ tippen",
+    "iosAdd": "„Zum Home-Bildschirm“ wählen",
+    "dismiss": "Ausblenden"
+  },
   "pin": {
     "eyebrow": "Verwaltung",
     "title": "PIN eingeben",

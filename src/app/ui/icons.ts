@@ -22,6 +22,8 @@ export {
   LucideRotateCcw,
   LucideScanLine,
   LucideSettings2,
+  LucideShare,
+  LucideSquarePlus,
   LucideTarget,
   LucideTrash2,
   LucideTrendingDown,
