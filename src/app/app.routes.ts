@@ -14,8 +14,9 @@ export const routes: Routes = [
           import('./feature/leaderboard/leaderboard').then((m) => m.LeaderboardPage),
       },
       {
+        // Public: visitors self-register by scanning their badge QR code.
+        // Operator features inside the page are gated via PinService.
         path: 'spieler',
-        canActivate: [pinGuard],
         loadComponent: () => import('./feature/players/players').then((m) => m.PlayersPage),
       },
       {

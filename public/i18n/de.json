@@ -30,8 +30,11 @@
   },
   "players": {
     "eyebrow": "Verwaltung",
+    "publicEyebrow": "Mitmachen",
     "title": "Spieler",
     "subtitle": "{{count}} Spieler · keine Anmeldung nötig",
+    "publicSubtitle": "Scanne deinen Badge und leg dich als Spieler an",
+    "publicHint": "Du hast einen Badge mit QR-Code bekommen? Scanne ihn hier, gib deinen Namen und dein Geburtsjahr ein — fertig.",
     "scanNew": "Neuen Spieler scannen",
     "values": "{{count}} Werte",
     "scan": {
@@ -62,7 +65,8 @@
       "updated": "Spieler aktualisiert",
       "deleted": "Spieler gelöscht",
       "nameRequired": "Bitte einen Namen eingeben",
-      "yearInvalid": "Gültiges Geburtsjahr eingeben"
+      "yearInvalid": "Gültiges Geburtsjahr eingeben",
+      "alreadyRegistered": "Badge ist bereits registriert: {{name}}"
     }
   },
   "games": {

@@ -4,6 +4,7 @@ import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { PlayerService } from './player.service';
 import { CategoryService } from '../categories/category.service';
 import { ScoreService } from '../station/score.service';
+import { PinService } from '../../core/auth/pin.service';
 import { ToastService } from '../../ui/toast/toast.service';
 import { ConfirmService } from '../../ui/confirm-dialog/confirm.service';
 import { SpButton } from '../../ui/button/button';
@@ -44,6 +45,7 @@ export class PlayersPage implements OnInit {
   protected readonly playerService = inject(PlayerService);
   protected readonly categoryService = inject(CategoryService);
   protected readonly scoreService = inject(ScoreService);
+  protected readonly pinService = inject(PinService);
   private readonly toast = inject(ToastService);
   private readonly confirmService = inject(ConfirmService);
   private readonly transloco = inject(TranslocoService);
@@ -53,10 +55,14 @@ export class PlayersPage implements OnInit {
 
   protected readonly initials = initials;
 
-  ngOnInit(): void {
-    void this.playerService.load();
-    void this.categoryService.load();
-    void this.scoreService.loadAll();
+  async ngOnInit(): Promise<void> {
+    // The route is public; only operators get the full roster view.
+    await this.pinService.restore();
+    if (this.pinService.unlocked()) {
+      void this.playerService.load();
+      void this.categoryService.load();
+      void this.scoreService.loadAll();
+    }
   }
 
   protected startScan(): void {
@@ -65,11 +71,24 @@ export class PlayersPage implements OnInit {
 
   protected async onBadgeDetected(code: string): Promise<void> {
     const existing = await this.playerService.findByBadge(code);
-    if (existing) {
-      this.editPlayer(existing.id);
-    } else {
+    if (!existing) {
       this.draft.set({ badge: code, name: '', year: '' });
       this.view.set('form');
+      return;
+    }
+    if (this.pinService.unlocked()) {
+      this.draft.set({
+        id: existing.id,
+        badge: existing.badge_code,
+        name: existing.name,
+        year: String(existing.year_of_birth),
+      });
+      this.view.set('form');
+    } else {
+      this.toast.show(
+        this.transloco.translate('players.toasts.alreadyRegistered', { name: existing.name }),
+      );
+      this.view.set('list');
     }
   }
 

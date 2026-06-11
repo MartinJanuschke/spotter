@@ -54,7 +54,7 @@ export class ShellComponent {
   );
 
   protected readonly tabs: TabDef[] = [
-    { path: '/spieler', labelKey: 'shell.tabs.players', icon: LucideUsers.icon, locked: true },
+    { path: '/spieler', labelKey: 'shell.tabs.players', icon: LucideUsers.icon },
     { path: '/spiele', labelKey: 'shell.tabs.games', icon: LucideGamepad2.icon, locked: true },
     {
       path: '/station',

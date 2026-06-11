@@ -30,8 +30,11 @@
   },
   "players": {
     "eyebrow": "Admin",
+    "publicEyebrow": "Join in",
     "title": "Players",
     "subtitle": "{{count}} players · no sign-up needed",
+    "publicSubtitle": "Scan your badge to register as a player",
+    "publicHint": "Got a badge with a QR code? Scan it here, enter your name and year of birth — done.",
     "scanNew": "Scan new player",
     "values": "{{count}} results",
     "scan": {
@@ -62,7 +65,8 @@
       "updated": "Player updated",
       "deleted": "Player deleted",
       "nameRequired": "Please enter a name",
-      "yearInvalid": "Enter a valid year of birth"
+      "yearInvalid": "Enter a valid year of birth",
+      "alreadyRegistered": "Badge already registered: {{name}}"
     }
   },
   "games": {
