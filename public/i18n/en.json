@@ -1,6 +1,7 @@
 {
   "shell": {
     "live": "Spotter Cup",
+    "language": "Language",
     "tabs": {
       "players": "Players",
       "games": "Games",
@@ -88,6 +89,7 @@
     "showQr": "Show QR",
     "form": {
       "title": "New game",
+      "editTitle": "Edit game",
       "name": "Discipline name",
       "namePlaceholder": "e.g. Shot speed",
       "unit": "Unit",
@@ -116,6 +118,7 @@
     },
     "toasts": {
       "created": "Game created",
+      "updated": "Game saved",
       "deleted": "Game deleted",
       "nameRequired": "Please enter a game name",
       "unitRequired": "Please enter a unit"

@@ -49,7 +49,12 @@ export function computeOverallResults(
     if (values.length === 0) continue;
     const extreme = game.higher_is_better ? Math.max(...values) : Math.min(...values);
     for (const [playerId, value] of best) {
-      const points = game.higher_is_better ? (value / extreme) * 1000 : (extreme / value) * 1000;
+      const points =
+        value === extreme
+          ? 1000
+          : game.higher_is_better
+            ? (value / extreme) * 1000
+            : (extreme / value) * 1000;
       const current = bestByPlayer.get(playerId);
       if (!current || points > current.points) bestByPlayer.set(playerId, { points, game });
     }

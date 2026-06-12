@@ -5,6 +5,7 @@ import { filter, map } from 'rxjs';
 import { TranslocoPipe } from '@jsverse/transloco';
 import type { LucideIconData } from '@lucide/angular';
 import { PinService } from '../../core/auth/pin.service';
+import { LanguageService } from '../../core/i18n/language.service';
 import { SpToastHost } from '../../ui/toast/toast-host';
 import { SpConfirmDialog } from '../../ui/confirm-dialog/confirm-dialog';
 import { SpInstallBanner } from '../../ui/install-banner/install-banner';
@@ -44,6 +45,7 @@ interface TabDef {
 })
 export class ShellComponent {
   protected readonly pinService = inject(PinService);
+  protected readonly language = inject(LanguageService);
   private readonly router = inject(Router);
 
   /** Rangliste widens to a projector-friendly layout on large screens. */

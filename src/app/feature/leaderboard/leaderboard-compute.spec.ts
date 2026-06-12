@@ -130,4 +130,25 @@ describe('computeOverallResults', () => {
   it('returns empty when there are no scores', () => {
     expect(computeOverallResults([game('g1', true)], players, [])).toEqual([]);
   });
+
+  it('handles zero values without producing NaN (higher is better)', () => {
+    const g = game('g1', true);
+    const rows = computeOverallResults([g], players, [
+      score('g1', 'p1', 0),
+      score('g1', 'p2', 0),
+    ]);
+    expect(rows[0].points).toBe(1000);
+    expect(rows[1].points).toBe(1000);
+  });
+
+  it('handles a zero field leader without producing NaN (lower is better)', () => {
+    const g = game('g1', false);
+    const rows = computeOverallResults([g], players, [
+      score('g1', 'p1', 0),
+      score('g1', 'p2', 20),
+    ]);
+    expect(rows[0].player.id).toBe('p1');
+    expect(rows[0].points).toBe(1000);
+    expect(rows[1].points).toBe(0);
+  });
 });

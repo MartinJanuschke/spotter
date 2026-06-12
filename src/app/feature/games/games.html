@@ -67,6 +67,14 @@
             </span>
             <button
               type="button"
+              (click)="editGame(game)"
+              aria-label="Bearbeiten"
+              class="inline-flex h-[34px] w-[34px] flex-none cursor-pointer items-center justify-center rounded-[10px] border-0 bg-(--surface-sunken) [-webkit-tap-highlight-color:transparent]"
+            >
+              <svg lucidePencil [size]="15" [strokeWidth]="2.2" class="text-(--n-500)"></svg>
+            </button>
+            <button
+              type="button"
               (click)="showQr(game)"
               [attr.aria-label]="'games.showQr' | transloco"
               class="inline-flex h-[34px] w-[34px] flex-none cursor-pointer items-center justify-center rounded-[10px] border-0 bg-(--surface-sunken) [-webkit-tap-highlight-color:transparent]"
@@ -100,7 +108,7 @@
       <h1
         class="mt-1.5 mb-3.5 font-display text-[26px] font-bold tracking-[-0.03em] text-(--text-strong)"
       >
-        {{ 'games.form.title' | transloco }}
+        {{ (draft().id ? 'games.form.editTitle' : 'games.form.title') | transloco }}
       </h1>
 
       <label class="mb-[7px] block font-body text-[13px] font-semibold text-(--text-strong)">

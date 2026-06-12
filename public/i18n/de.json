@@ -1,6 +1,7 @@
 {
   "shell": {
-    "live": "Spotter Cup",
+    "live": "Jugendtag 2026",
+    "language": "Sprache",
     "tabs": {
       "players": "Spieler",
       "games": "Spiele",
@@ -88,6 +89,7 @@
     "showQr": "QR anzeigen",
     "form": {
       "title": "Neues Spiel",
+      "editTitle": "Spiel bearbeiten",
       "name": "Name der Disziplin",
       "namePlaceholder": "z. B. Schussgeschwindigkeit",
       "unit": "Einheit",
@@ -116,6 +118,7 @@
     },
     "toasts": {
       "created": "Spiel erstellt",
+      "updated": "Spiel gespeichert",
       "deleted": "Spiel gelöscht",
       "nameRequired": "Bitte einen Spielnamen eingeben",
       "unitRequired": "Bitte eine Einheit eingeben"

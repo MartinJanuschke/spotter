@@ -15,6 +15,7 @@ import {
   LucideCheck,
   LucideChevronLeft,
   LucideFlagTriangleRight,
+  LucidePencil,
   LucidePlus,
   LucidePrinter,
   LucideQrCode,
@@ -26,6 +27,7 @@ import {
 } from '../../ui/icons';
 
 interface GameDraft {
+  id?: string;
   name: string;
   unit: string;
   dir: 'high' | 'low';
@@ -43,6 +45,7 @@ interface GameDraft {
     LucideCheck,
     LucideChevronLeft,
     LucideFlagTriangleRight,
+    LucidePencil,
     LucidePlus,
     LucidePrinter,
     LucideQrCode,
@@ -79,6 +82,17 @@ export class GamesPage implements OnInit {
     this.view.set('form');
   }
 
+  protected editGame(game: Game): void {
+    this.draft.set({
+      id: game.id,
+      name: game.name,
+      unit: game.unit,
+      dir: game.higher_is_better ? 'high' : 'low',
+      tries: game.tries,
+    });
+    this.view.set('form');
+  }
+
   protected setName(value: string): void {
     this.draft.update((d) => ({ ...d, name: value }));
   }
@@ -111,13 +125,19 @@ export class GamesPage implements OnInit {
       this.toast.show(this.transloco.translate('games.toasts.unitRequired'), 'x');
       return;
     }
-    await this.gameService.create({
+    const data = {
       name,
       unit,
       higher_is_better: draft.dir === 'high',
       tries: draft.tries,
-    });
-    this.toast.show(this.transloco.translate('games.toasts.created'));
+    };
+    if (draft.id) {
+      await this.gameService.update(draft.id, data);
+      this.toast.show(this.transloco.translate('games.toasts.updated'));
+    } else {
+      await this.gameService.create(data);
+      this.toast.show(this.transloco.translate('games.toasts.created'));
+    }
     this.view.set('list');
   }
 

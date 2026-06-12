@@ -151,7 +151,7 @@ export class StationPage implements OnInit {
     const player = this.player();
     if (!game || !player) return;
     const value = parseFloat(this.valueInput());
-    if (!this.valueInput() || isNaN(value) || value <= 0) {
+    if (!this.valueInput() || isNaN(value) || value < 0) {
       this.toast.show(this.transloco.translate('station.toasts.invalidValue'), 'x');
       return;
     }
